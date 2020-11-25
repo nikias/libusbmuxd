@@ -28,7 +28,7 @@ jobs:
           fi
           echo "Download URL for ${{env.target_triplet}}: $libplist_artifact_dl_url"
           libplist_artifact_base_url=$(echo $libplist_artifact_dl_url |sed 's/https:\/\///')
-          curl -L -s -o libplist.zip "https://${{secrets.GITHUB_PAT}}@$libplist_artifact_base_url"
+          curl -L -s -o libplist.zip "https://${{secrets.GITHUB_TOKEN}}@$libplist_artifact_base_url"
           cat libplist.zip
           unzip -l libplist.zip
     #- uses: actions/checkout@v2
