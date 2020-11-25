@@ -11,7 +11,7 @@ jobs:
           #sudo apt-get install cython
           echo "target_triplet=`gcc -dumpmachine`" >> $GITHUB_ENV
           run_id=$(curl -fs -H 'Accept: application/vnd.github.antiope-preview+json' https://api.github.com/repos/nikias/libplist/actions/workflows/build.yml/runs \
-              | jq ".workflow_runs[]"
+              | jq ".workflow_runs[]")
           echo $run_id
     #- uses: actions/checkout@v2
     #  with:
