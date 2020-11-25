@@ -19,7 +19,7 @@ jobs:
             echo "ERROR: Could not get libplist artifacts URL"
             exit 1
           fi
-          libplist_artifact_dl_url="$(curl -s -H 'Accept: application/vnd.github.antiope-preview+json' $libplist_artifacts_url \
+          libplist_artifact_dl_url=$(curl -s -H 'Accept: application/vnd.github.antiope-preview+json' $libplist_artifacts_url \
               | jq "[.artifacts[] | select(.name == \"libplist-latest_${{env.target_triplet}}\").archive_download_url")
           if test -z "$libplist_artifact_dl_url" -o "$libplist_artifact_dl_url" == "null"; then
             echo "ERROR: Could not get artifact archive download URL for ${{env.target_triplet}}"
