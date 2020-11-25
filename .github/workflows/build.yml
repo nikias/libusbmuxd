@@ -10,23 +10,25 @@ jobs:
       run: |
           #sudo apt-get install cython
           echo "target_triplet=`gcc -dumpmachine`" >> $GITHUB_ENV
-    - name: install prebuilt dependencies
+    - name: install external dependencies
       run: |
           libplist_artifacts_url=$(curl -fs -H 'Accept: application/vnd.github.antiope-preview+json' https://api.github.com/repos/nikias/libplist/actions/workflows/build.yml/runs \
-              | jq "[.workflow_runs[] | select(.name == \"build\")][0].artifacts_url")
+              | jq "[.workflow_runs[] | select(.name == \"build\")][0].artifacts_url" |xargs)
           echo $libplist_artifacts_url
           if test -z "$libplist_artifacts_url" -o "$libplist_artifacts_url" == "null"; then
             echo "ERROR: Could not get libplist artifacts URL"
             exit 1
           fi
           libplist_artifact_dl_url=$(curl -s -H 'Accept: application/vnd.github.antiope-preview+json' $libplist_artifacts_url \
-              | jq ".artifacts[] | select(.name == \"libplist-latest_${{env.target_triplet}}\").archive_download_url")
+              | jq ".artifacts[] | select(.name == \"libplist-latest_${{env.target_triplet}}\").archive_download_url" |xargs)
           echo $libplist_artifact_dl_url
           if test -z "$libplist_artifact_dl_url" -o "$libplist_artifact_dl_url" == "null"; then
             echo "ERROR: Could not get artifact archive download URL for ${{env.target_triplet}}"
             exit 1
           fi
           echo "Download URL for ${{env.target_triplet}}: $libplist_artifact_dl_url"
+          curl -L -s $libplist_artifact_dl_url > libplist.zip
+          unzip -l libplist.zip
     #- uses: actions/checkout@v2
     #  with:
     #    fetch-depth: 0
