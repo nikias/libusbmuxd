@@ -10,22 +10,25 @@ jobs:
       run: |
           #sudo apt-get install cython
           echo "target_triplet=`gcc -dumpmachine`" >> $GITHUB_ENV
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: autogen
-      run: ./autogen.sh
-    - name: make
-      run: make
-    - name: prepare artifact
-      run: |
-          mkdir -p dest
-          DESTDIR=`pwd`/dest make install
-    - name: publish artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: libusbmuxd-latest_${{env.target_triplet}}
-        path: dest/*
+          run_id=$(curl -fs -H 'Accept: application/vnd.github.antiope-preview+json' https://api.github.com/repos/nikias/libplist/actions/workflows/build.yml/runs \
+              | jq ".workflow_runs[]"
+          echo $run_id
+    #- uses: actions/checkout@v2
+    #  with:
+    #    fetch-depth: 0
+    #- name: autogen
+    #  run: ./autogen.sh
+    #- name: make
+    #  run: make
+    #- name: prepare artifact
+    #  run: |
+    #      mkdir -p dest
+    #      DESTDIR=`pwd`/dest make install
+    #- name: publish artifact
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    name: libusbmuxd-latest_${{env.target_triplet}}
+    #    path: dest/*
 #  build-macOS:
 #    runs-on: macOS-latest
 #    steps:
