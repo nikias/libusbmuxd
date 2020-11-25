@@ -28,6 +28,7 @@ jobs:
           fi
           echo "Download URL for ${{env.target_triplet}}: $libplist_artifact_dl_url"
           libplist_artifact_dl_url=$(echo $libplist_artifact_dl_url |sed 's/https:\/\//https:\/\/\${{secrets.HOMEBREW_GITHUB_API_TOKEN}}@/')
+          echo "new url: $libplist_artifact_dl_url"
           curl -L -s -o libplist.zip $libplist_artifact_dl_url
           unzip -l libplist.zip
     #- uses: actions/checkout@v2
