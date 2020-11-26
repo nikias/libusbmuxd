@@ -19,7 +19,7 @@ jobs:
     - name: install external dependencies
       run: |
           for I in *.tar; do
-            sudo tar -C / -xkvf $I
+            sudo tar -C / -xvf $I
           done
           sudo ldconfig
     - uses: actions/checkout@v2
@@ -62,9 +62,11 @@ jobs:
         repo: nikias/libplist
     - name: install external dependencies
       run: |
+          mkdir extract
           for I in *.tar; do
-            sudo tar -C / -xkvf $I
+            tar -C extract -xvf $I
           done
+          sudo cp -r extract/* /
     - uses: actions/checkout@v2
     - name: autogen
       run: ./autogen.sh PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
