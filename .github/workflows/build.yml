@@ -22,21 +22,17 @@ jobs:
       run: |
           tar -C ../prebuilt -xvf ../prebuilt/libplist.tar
           echo "PREBUILT_PATH=`pwd`/../prebuilt" >> $GITHUB_ENV
-          ls -lR `pwd`/../prebuilt/usr/local/include
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
     - name: autogen
-      run: |
-          ls -lR ${{env.PREBUILT_PATH}}/usr/local/include
-          ./autogen.sh LDFLAGS="-rpath /usr/local/lib" libplist_CFLAGS="-I${{env.PREBUILT_PATH}}/usr/local/include" libplist_LIBS="-L${{env.PREBUILT_PATH}}/usr/local/lib -lplist-2.0"
+      run: ./autogen.sh LDFLAGS="-Wl,-rpath=/usr/local/lib" libplist_CFLAGS="-I${{env.PREBUILT_PATH}}/usr/local/include" libplist_LIBS="-L${{env.PREBUILT_PATH}}/usr/local/lib -lplist-2.0"
     - name: make
       run: make
     - name: prepare artifact
       run: |
           mkdir -p dest
           DESTDIR=`pwd`/dest make install
-          ls -l dest
           tar -C dest -cf libusbmuxd.tar usr
     - name: publish artifact
       uses: actions/upload-artifact@v2
