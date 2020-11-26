@@ -58,7 +58,7 @@ jobs:
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         workflow: build.yml
-        name: libplist-latest_${{env.target_triplet}}
+        name: libplist-latest_macOS
         repo: nikias/libplist
     - name: install external dependencies
       run: |
