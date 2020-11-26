@@ -22,7 +22,7 @@ jobs:
           for I in *.tar; do
             sudo tar -C extract -xvf $I
           done
-          sudo cp -a extract/* /
+          sudo cp -r extract/* /
           sudo ldconfig
     - uses: actions/checkout@v2
       with:
@@ -68,7 +68,7 @@ jobs:
           for I in *.tar; do
             tar -C extract -xvf $I
           done
-          sudo cp -a extract/* /
+          sudo cp -r extract/* /
     - uses: actions/checkout@v2
     - name: autogen
       run: ./autogen.sh PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
