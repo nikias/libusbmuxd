@@ -29,7 +29,7 @@ jobs:
       run: |
           ./autogen.sh libplist_CFLAGS="-I${{env.PREBUILT_PATH}}/usr/local/include" libplist_LIBS="-L${{env.PREBUILT_PATH}}/usr/local/lib -lplist-2.0"
     - name: make
-      run: make
+      run: make V=1
     - name: prepare artifact
       run: |
           mkdir -p dest
