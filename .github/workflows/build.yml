@@ -18,9 +18,11 @@ jobs:
         repo: nikias/libplist
     - name: install external dependencies
       run: |
+          mkdir extract
           for I in *.tar; do
-            sudo tar -C / -xvf $I
+            sudo tar -C extract -xvf $I
           done
+          sudo cp -a extract/* /
           sudo ldconfig
     - uses: actions/checkout@v2
       with:
@@ -66,7 +68,7 @@ jobs:
           for I in *.tar; do
             tar -C extract -xvf $I
           done
-          sudo cp -r extract/* /
+          sudo cp -a extract/* /
     - uses: actions/checkout@v2
     - name: autogen
       run: ./autogen.sh PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
