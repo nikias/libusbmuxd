@@ -20,8 +20,10 @@ jobs:
         repo: nikias/libplist
     - name: install libplist
       run: |
+          echo `pwd`
           tar -C prebuilt -xvf prebuilt/libplist.tar
           echo "PREBUILT_PATH=`pwd`/prebuilt" >> $GITHUB_ENV
+          ls -lR prebuilt
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
