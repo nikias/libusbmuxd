@@ -28,7 +28,7 @@ jobs:
     - name: autogen
       run: |
           echo ${{env.PREBUILT_PATH}}
-          ./autogen.sh libplist_
+          ./autogen.sh libplist_CFLAGS="-I${{env.PREBUILT_PATH}/usr/local/include" libplist_LIBS="-L${{env.PREBUILT_PATH}}/usr/local/lib -lplist-2.0"
     - name: make
       run: make
     - name: prepare artifact
