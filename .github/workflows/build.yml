@@ -15,19 +15,19 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         workflow: build.yml
         name: libplist-latest_${{env.target_triplet}}
-        path: ../prebuilt
         repo: nikias/libplist
     - name: install libplist
       run: |
-          tar -C ../prebuilt -xvf ../prebuilt/libplist.tar
-          echo "PREBUILT_PATH=`pwd`/../prebuilt" >> $GITHUB_ENV
+          sudo tar -C / -xvf libplist.tar
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
     - name: autogen
-      run: ./autogen.sh LDFLAGS="-Wl,-rpath=/usr/local/lib" libplist_CFLAGS="-I${{env.PREBUILT_PATH}}/usr/local/include" libplist_LIBS="-L${{env.PREBUILT_PATH}}/usr/local/lib -lplist-2.0"
+      run: ./autogen.sh PKG_CONFIG_PATH=/usr/local/lib/pkgconfig LDFLAGS="-Wl,-rpath=/usr/local/lib"
     - name: make
       run: make
+    - name: make install
+      run: sudo make install
     - name: prepare artifact
       run: |
           mkdir -p dest
