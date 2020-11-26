@@ -10,16 +10,15 @@ jobs:
       run: |
           #sudo apt-get install cython
           echo "target_triplet=`gcc -dumpmachine`" >> $GITHUB_ENV
-    - name: install libplist
+    - name: retrieve libplist
       uses: dawidd6/action-download-artifact@v2
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         workflow: build.yml
         name: libplist-latest_${{env.target_triplet}}
+        path: prebuilt
         repo: nikias/libplist
-      run: |
-          tar tf libplist.tar
-    - name: check results
+    - name: install libplist
       run: |
           tar tf libplist.tar
     #- uses: actions/checkout@v2
