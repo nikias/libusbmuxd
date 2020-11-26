@@ -23,7 +23,7 @@ jobs:
           echo `pwd`
           tar -C prebuilt -xvf prebuilt/libplist.tar
           echo "PREBUILT_PATH=`pwd`/prebuilt" >> $GITHUB_ENV
-          ls -lR prebuilt
+          ls -lR `pwd`/prebuilt/usr/local/include
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
