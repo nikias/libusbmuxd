@@ -31,16 +31,18 @@ jobs:
           ls -lR ${{env.PREBUILT_PATH}}/usr/local/include
           ./autogen.sh libplist_CFLAGS="-I${{env.PREBUILT_PATH}}/usr/local/include" libplist_LIBS="-L${{env.PREBUILT_PATH}}/usr/local/lib -lplist-2.0"
     - name: make
-      run: make V=1
+      run: make
     - name: prepare artifact
       run: |
           mkdir -p dest
           DESTDIR=`pwd`/dest make install
-    #- name: publish artifact
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: libusbmuxd-latest_${{env.target_triplet}}
-    #    path: dest/*
+          ls -l dest
+          tar -C dest -cf libusbmuxd.tar usr
+    - name: publish artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: libusbmuxd-latest_${{env.target_triplet}}
+        path: libusbmuxd.tar
 #  build-macOS:
 #    runs-on: macOS-latest
 #    steps:
