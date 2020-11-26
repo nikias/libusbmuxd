@@ -27,6 +27,7 @@ jobs:
         fetch-depth: 0
     - name: autogen
       run: |
+          ls -lR ${{env.PREBUILT_PATH}}/usr/local/include
           ./autogen.sh libplist_CFLAGS="-I${{env.PREBUILT_PATH}}/usr/local/include" libplist_LIBS="-L${{env.PREBUILT_PATH}}/usr/local/lib -lplist-2.0"
     - name: make
       run: make V=1
