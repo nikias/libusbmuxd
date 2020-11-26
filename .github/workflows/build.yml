@@ -21,17 +21,20 @@ jobs:
     - name: install libplist
       run: |
           tar -C prebuilt -xvf prebuilt/libplist.tar
-    #- uses: actions/checkout@v2
-    #  with:
-    #    fetch-depth: 0
-    #- name: autogen
-    #  run: ./autogen.sh
-    #- name: make
-    #  run: make
-    #- name: prepare artifact
-    #  run: |
-    #      mkdir -p dest
-    #      DESTDIR=`pwd`/dest make install
+          echo "PREBUILT_PATH=`pwd`/prebuilt" >> $GITHUB_ENV
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: autogen
+      run: |
+          echo ${{env.PREBUILT_PATH}}
+          ./autogen.sh libplist_
+    - name: make
+      run: make
+    - name: prepare artifact
+      run: |
+          mkdir -p dest
+          DESTDIR=`pwd`/dest make install
     #- name: publish artifact
     #  uses: actions/upload-artifact@v2
     #  with:
