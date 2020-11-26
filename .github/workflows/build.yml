@@ -19,7 +19,7 @@ jobs:
     - name: install external dependencies
       run: |
           for I in *.tar; do
-            sudo tar -C / -xvf $I
+            sudo tar -C / -xkvf $I
           done
           sudo ldconfig
     - uses: actions/checkout@v2
@@ -63,7 +63,7 @@ jobs:
     - name: install external dependencies
       run: |
           for I in *.tar; do
-            sudo tar -C / -xvf $I
+            sudo tar -C / -xkvf $I
           done
     - uses: actions/checkout@v2
     - name: autogen
