@@ -18,7 +18,7 @@ jobs:
         name: libplist-latest_${{env.target_triplet}}
         path: prebuilt
         repo: nikias/libplist
-    - name: check results:
+    - name: check results
       run: |
           ls -l prebuilt
     #- name: install external dependencies
