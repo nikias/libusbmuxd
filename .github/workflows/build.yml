@@ -133,7 +133,7 @@ jobs:
           cp -r extract/* /
     - uses: actions/checkout@v2
     - name: autogen
-      run: ./autogen.sh CC=gcc CXX=g++ --without-cython
+      run: ./autogen.sh CC=gcc CXX=g++
     - name: make
       run: make
     - name: make install
